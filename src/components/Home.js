@@ -14,9 +14,14 @@ import Grid from '@mui/material/Grid';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { TextField } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { delblog } from '../redux/actions/listAction';
 
 
 export default function Home() {
+    const handleDeleteBlog = (id) => {
+        dispatch(delblog(id));
+      };
     const blogs = useSelector((state) => state.allBlogs.blogs);
     console.log(typeof(blogs));
     console.log(blogs);
@@ -118,7 +123,7 @@ export default function Home() {
 
     return (
     <>
-    <Grid container spacing={0}>
+    <Grid container rowSpacing={4}>
        <Grid item md={5}>
        </Grid>
        <Grid item md={4}>
@@ -135,7 +140,8 @@ export default function Home() {
             <TableCell align="center" sx={{backgroundColor:"#8c7deecc",borderTopLeftRadius:'23px'}}>User ID</TableCell>
             <TableCell align="center" sx={{backgroundColor:"#8c7deecc"}}>Id</TableCell>
             <TableCell align="center" sx={{backgroundColor:"#8c7deecc"}}>Title</TableCell>
-            <TableCell align="center" sx={{backgroundColor:"#8c7deecc",borderTopRightRadius:'23px'}}>Body</TableCell>
+            <TableCell align="center" sx={{backgroundColor:"#8c7deecc"}}>Body</TableCell>
+            <TableCell align="center" sx={{backgroundColor:"#8c7deecc",borderTopRightRadius:'23px'}}>Delete</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -150,6 +156,7 @@ export default function Home() {
               <TableCell align="center">{row.id}</TableCell>
               <TableCell align="left">{row.title}</TableCell>
               <TableCell align="left">{row.body}</TableCell>
+              <TableCell align="left"><DeleteIcon onClick={() => handleDeleteBlog(row.id)}/></TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -21,6 +21,12 @@ export const blogReducer=(state=initialState,{type,payload})=>{
                 // console.log(updated);
                 return{...state,blogs:updated   }
             }
+        case ActionTypes.DEL_BLOG:
+            {
+                const updatedBlogs = state.blogs.filter((blog) => blog.id !== payload);
+                return { ...state, blogs: updatedBlogs };
+                
+            }
     
         default:
             return state;
