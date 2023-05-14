@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect,useState } from 'react';
 import axios from 'axios';
-import { addblog } from '../redux/actions/listAction';
+import { addblog,adding  } from '../redux/actions/listAction';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -13,10 +13,12 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { TextField } from '@mui/material';
 
 
 export default function Home() {
     const blogs = useSelector((state) => state.allBlogs.blogs);
+    console.log(typeof(blogs));
     console.log(blogs);
     const dispatch=useDispatch();
     useEffect(() => {
@@ -31,6 +33,7 @@ export default function Home() {
         async function makeRequest() {
             try {
                 const response = await axios.request(config);
+                //console.log(response.data)
                 dispatch(addblog(response.data))
             }
             catch (error) {
@@ -49,10 +52,32 @@ export default function Home() {
     {
         rows.push(createData(blogs[i].userId,blogs[i].title,blogs[i].id,blogs[i].body))
     }
-    console.log(rows)
+    //console.log(rows)
     
     const [modalShow, setModalShow] = React.useState(false);
+    
     function MyVerticallyCenteredModal(props) {
+        const submit=()=>{
+            let addb={
+                userId:user,
+                id: i,
+                body: b,
+                title:ti,
+                 
+    
+            }
+            //console.log(addb);
+            dispatch(adding(addb))
+            setModalShow(false)
+    
+        }
+
+        const [user,setUser]=useState();
+        const [i,setI]=useState();
+        const [ti,setTi]=useState();
+        const [b,setB]=useState();
+    
+        //console.log(props,modalShow);
         return (
           <Modal
             {...props}
@@ -66,15 +91,25 @@ export default function Home() {
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <h4>Centered Modal</h4>
-              <p>
-                Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-                dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-                consectetur ac, vestibulum at eros.
-              </p>
+                <Grid container rowSpacing={3}>
+                    <Grid item md={6}>
+                    <TextField id="outlined-number" label="ID" type="number" value={user} onChange={(e)=>setUser(e.target.value)} InputLabelProps={{  shrink: true,}} />
+                    </Grid>
+                    <Grid item md={6}>
+                    <TextField id="outlined-number" label="UserId" type="number" value={i} onChange={(e)=>setI(e.target.value)} InputLabelProps={{  shrink: true,}} />
+                    </Grid>
+                    <Grid item md={6}>
+                    <TextField id="outlined-basic" label="Title" value={ti} onChange={(e)=>setTi(e.target.value)} variant="outlined" />
+                    </Grid>
+                    <Grid item md={6}>
+                    <TextField id="outlined-basic" label="Body" value={b} onChange={(e)=>setB(e.target.value)}  variant="outlined" />
+                    </Grid>
+
+                </Grid>
             </Modal.Body>
             <Modal.Footer>
-              <Button onClick={props.onHide}>Close</Button>
+              {/* <Button onClick={props.onHide}>Submit</Button> */}
+              <Button onClick={submit}>Submit</Button>
             </Modal.Footer>
           </Modal>
         );
@@ -106,11 +141,11 @@ export default function Home() {
         <TableBody>
           {blogs.map((row) => (
             <TableRow
-              key={row.name}
+              key={row.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row" align='center'>
-                {row.userid}
+                {row.userId}
               </TableCell>
               <TableCell align="center">{row.id}</TableCell>
               <TableCell align="left">{row.title}</TableCell>

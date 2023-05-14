@@ -14,3 +14,11 @@ export const delblog=(blog)=>{
     };
 
 };
+
+export const adding=(blog)=>{
+    return{
+        type:ActionTypes.ADDING,
+        payload:blog,
+    };
+
+};
