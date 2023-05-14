@@ -15,7 +15,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { TextField } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { delblog } from '../redux/actions/listAction';
+import { delblog,search } from '../redux/actions/listAction';
 
 
 export default function Home() {
@@ -120,18 +120,25 @@ export default function Home() {
         );
       }
 
-
+      const [term,setTerm]=useState("")
+      const searching=()=>{
+        dispatch(search(term));
+      }
     return (
     <>
-    <Grid container rowSpacing={4}>
-       <Grid item md={5}>
+    <hr ></hr>
+    <Grid container rowSpacing={0}>
+       <Grid item md={5} sx={{paddingLeft:'45px',paddingBottom:'45px'}}>
+       <TextField id="outlined-basic" label="Body" value={term} onChange={(e)=>setTerm(e.target.value)}  variant="outlined" />
+       <Button className='p-3 ml-3' onClick={searching}>Search</Button>
+       </Grid>
+       
+       <Grid item md={3}>
        </Grid>
        <Grid item md={4}>
        <Button variant="primary" onClick={() => setModalShow(true)}>
         ADD BLOG
       </Button>
-       </Grid>
-       <Grid item md={3}>
        </Grid>
     <TableContainer component={Paper} sx={{paddingRight:'25px',paddingLeft:'25px'}}>
       <Table  aria-label="simple table">

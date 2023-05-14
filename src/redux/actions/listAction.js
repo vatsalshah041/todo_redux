@@ -22,3 +22,10 @@ export const adding=(blog)=>{
     };
 
 };
+export const search=(blog)=>{
+    return{
+        type:ActionTypes.SEARCH,
+        payload:blog,
+    };
+
+};
