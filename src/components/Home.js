@@ -125,9 +125,9 @@ export default function Home() {
         dispatch(search(term));
       }
     return (
-    <>
-    <hr ></hr>
-    <Grid container rowSpacing={0}>
+    <div data-testid="home-1">
+     <hr ></hr>
+     <Grid container rowSpacing={0}>
        <Grid item md={5} sx={{paddingLeft:'45px',paddingBottom:'45px'}}>
        <TextField id="outlined-basic" label="Body" value={term} onChange={(e)=>setTerm(e.target.value)}  variant="outlined" />
        <Button className='p-3 ml-3' onClick={searching}>Search</Button>
@@ -140,7 +140,7 @@ export default function Home() {
         ADD BLOG
       </Button>
        </Grid>
-    <TableContainer component={Paper} sx={{paddingRight:'25px',paddingLeft:'25px'}}>
+     <TableContainer component={Paper} sx={{paddingRight:'25px',paddingLeft:'25px'}}>
       <Table  aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -168,13 +168,13 @@ export default function Home() {
           ))}
         </TableBody>
       </Table>
-    </TableContainer>
-    </Grid>
+     </TableContainer>
+     </Grid>
 
-    <MyVerticallyCenteredModal
+     <MyVerticallyCenteredModal
         show={modalShow}
         onHide={() => setModalShow(false)}
       />
-    </>
+    </div>
     )
 }
