@@ -23,8 +23,8 @@ export default function Home() {
         dispatch(delblog(id));
       };
     const blogs = useSelector((state) => state.allBlogs.blogs);
-    console.log(typeof(blogs));
-    console.log(blogs);
+    // console.log(typeof(blogs));
+    // console.log(blogs);
     const dispatch=useDispatch();
     useEffect(() => {
 
@@ -39,7 +39,7 @@ export default function Home() {
             try {
                 const response = await axios.request(config);
                 //console.log(response.data)
-                dispatch(addblog(response.data))
+                dispatch(addblog(response.data))//storing value in redux store
             }
             catch (error) {
                 console.log(error);

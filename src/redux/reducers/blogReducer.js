@@ -32,14 +32,14 @@ export const blogReducer = (state = initialState, { type, payload }) => {
 
         case ActionTypes.SEARCH:
             {
-                console.log(payload);
+                // console.log(payload);
                 const hello=state.blogs;
-                console.log(hello)
+                // console.log(hello)
                 const searchTerm = payload.toLowerCase().trim();
                 const filteredBlogs = state.blogs.filter(
                     (blog) => blog.body.toLowerCase().includes(searchTerm) || blog.title.toLowerCase().includes(searchTerm)
                 );
-                if (searchTerm === "" && filteredBlogs.length === 0) {
+                if (searchTerm === "" || filteredBlogs.length === 0) {
                     console.log("hello");
                     return {...state,blogs:state.originalBlogs}; // Return the original state without filtering
                 } else {
